@@ -1,5 +1,6 @@
 
 POST http://localhost:8080/api/products
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzc291bHNpZGFsaUBnbWFpbC5jb20iLCJmdWxsTmFtZSI6IkFzc291bCBzaWRhbGkiLCJzdWIiOiI2MzEwZTQwM2IyYjJkZTZjZjU2ZTQwMzUiLCJpYXQiOjE2NjIwNjQ4MzEsImV4cCI6MTY2MjA2NTAzMX0.eb8_J8L3c9a92i8vGdlqU-saCG61SBffBGb1ahirlBs
 Content-Type:application/json
 
 {
