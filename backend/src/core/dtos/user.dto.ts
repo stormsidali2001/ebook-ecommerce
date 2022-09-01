@@ -5,3 +5,7 @@ export class CreateUserDTO{
     password:string;
 
 }
+export class LoginDTO{
+    email:string;
+    password:string;
+}

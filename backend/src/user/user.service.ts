@@ -1,6 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { FilterQuery, Model, UpdateQuery } from "mongoose";
 import { CreateUserDTO } from "src/core/dtos/user.dto";
 import { UserDocument } from "../core/entities/user.schema";
 
@@ -15,8 +15,12 @@ export class UserService{
         const newUser =  new this.userModel(user);
        return await newUser.save();
     }
-    async findUserByEmail(email:string){
-        return await this.userModel.findOne({email},{email:true,fullName:true}).exec();
+    async findUserByEmail(email:string , includePassword:boolean = false ){
+        return includePassword? await this.userModel.findOne({email}).exec()
+                                :await this.userModel.findOne({email},{password:false}).exec();
+    }
+    async findAndUpdate(filter: FilterQuery<UserDocument>,updateQuery:UpdateQuery<UserDocument>){
+        return this.userModel.findOneAndUpdate(filter,updateQuery);
     }
     
     
