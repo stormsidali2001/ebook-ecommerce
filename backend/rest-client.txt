@@ -6,3 +6,19 @@ Content-Type:application/json
     "name":"sl3at l marok",
     "price":12
 }
+###
+GET http://localhost:8080/api/products
+###
+GET http://localhost:8080/api/products/6310b351eaea1a752d6c7b9f
+
+###
+PUT http://localhost:8080/api/products/6310b351eaea1a752d6c7b9f
+Content-Type:application/json
+
+{
+    "name":"sl3at l marok edited"
+    
+}
+
+###
+DELETE http://localhost:8080/api/products/6310b351eaea1a752d6c7b9f
