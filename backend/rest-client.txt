@@ -1,0 +1,8 @@
+
+POST http://localhost:8080/api/products
+Content-Type:application/json
+
+{
+    "name":"sl3at l marok",
+    "price":12
+}
