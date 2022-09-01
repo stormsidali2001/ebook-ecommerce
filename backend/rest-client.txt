@@ -22,3 +22,13 @@ Content-Type:application/json
 
 ###
 DELETE http://localhost:8080/api/products/6310b351eaea1a752d6c7b9f
+
+### auth-----------------------------------
+POST http://localhost:8080/api/auth/register
+Content-Type:application/json
+
+{
+    "fullName":"Assoul sidali",
+    "email":"assoulsidali@gmail.com",
+    "password":"123456"
+}
