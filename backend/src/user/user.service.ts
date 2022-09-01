@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreateUserDTO } from "src/core/dtos/user.dto";
@@ -12,11 +12,12 @@ export class UserService{
     ){}
     
     async create(user:CreateUserDTO):Promise<UserDocument>{
-        console.log(user)
-        const newUser = new this.userModel(user);
-        return  newUser.save();
+        const newUser =  new this.userModel(user);
+       return await newUser.save();
     }
-    
+    async findUserByEmail(email:string){
+        return await this.userModel.findOne({email},{email:true,fullName:true}).exec();
+    }
     
     
 }
