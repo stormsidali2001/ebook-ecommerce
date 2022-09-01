@@ -1,6 +1,7 @@
 
 POST http://localhost:8080/api/products
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzc291bHNpZGFsaUBnbWFpbC5jb20iLCJmdWxsTmFtZSI6IkFzc291bCBzaWRhbGkiLCJzdWIiOiI2MzEwZTQwM2IyYjJkZTZjZjU2ZTQwMzUiLCJpYXQiOjE2NjIwNjQ4MzEsImV4cCI6MTY2MjA2NTAzMX0.eb8_J8L3c9a92i8vGdlqU-saCG61SBffBGb1ahirlBs
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzc291bHNpZGFsaU
+BnbWFpbC5jb20iLCJmdWxsTmFtZSI6IkFzc291bCBzaWRhbGkiLCJzdWIiOiI2MzEwZTQwM2IyYjJkZTZjZjU2ZTQwMzUiLCJpYXQiOjE2NjIwNjQ4MzEsImV4cCI6MTY2MjA2NTAzMX0.eb8_J8L3c9a92i8vGdlqU-saCG61SBffBGb1ahirlBs
 Content-Type:application/json
 
 {
@@ -42,3 +43,6 @@ Content-Type:application/json
     "email":"assoulsidali@gmail.com",
     "password":"123456"
 }
+###refresh
+POST http://localhost:8080/api/auth/refresh-token
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzc291bHNpZGFsaUBnbWFpbC5jb20iLCJmdWxsTmFtZSI6IkFzc291bCBzaWRhbGkiLCJzdWIiOiI2MzEwZTQwM2IyYjJkZTZjZjU2ZTQwMzUiLCJpYXQiOjE2NjIwNjczMzYsImV4cCI6MTY2MjA2ODEzNn0.J3eJeVUZMHOUfOfdPBGerJ18oQSN4h3sAotagZd7f7w

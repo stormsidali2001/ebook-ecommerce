@@ -1,5 +1,5 @@
 import { jwtPayload } from "./tokens.interface";
 
-export type  RequestWithUser = jwtPayload & {
+export type  JwtPayloadWithRefreshToken = jwtPayload & {
     refresh_token:string;
 }
