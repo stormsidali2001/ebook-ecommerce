@@ -1,6 +1,6 @@
 import { ChangeEvent, useReducer } from "react";
-import { Action } from "../shared/models/actions.interface";
-import { ValidatorFn } from "../shared/utils/validation/models/ValidatorFn";
+import { Action } from "../../shared/models/actions.interface";
+import { ValidatorFn } from "../../shared/utils/validation/models/ValidatorFn";
 import { InputActionType, INPUT_ACTION_BLUR, INPUT_ACTION_CHANGE, INPUT_ACTION_CLEAR } from "./models/InputAction";
 import { InputState } from "./models/InputState.interface";
 
@@ -23,7 +23,7 @@ const inputReducer = (state:InputState,action:Action<InputActionType>)=>{
     }
 }
 const useInput = (validatorFn?:ValidatorFn)=>{
-    const [{text,hasBeenTouched},dispatch] = useReducer(inputReducer,initialInputState);
+    const [{text,hasBeenTouched} ,dispatch] = useReducer(inputReducer,initialInputState);
     let shouldDisplayError;
     if(validatorFn){
         const isValid = validatorFn(text);

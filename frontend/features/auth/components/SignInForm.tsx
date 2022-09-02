@@ -1,9 +1,38 @@
 import { Box, Button, Divider, Grid, InputLabel, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
 import {FC , FormEvent} from 'react';
+import useInput from '../../../hooks/input/use-input';
+import { validateEmail } from '../../../shared/utils/validation/email';
+import { validatePasswordLength } from '../../../shared/utils/validation/length';
 const SignInForm = () => {
+    const { 
+        text:email,
+        shouldDisplayError : emailHasError,
+        textChangeHandler : emailChangeHandler,
+        inputBlurHandler : emailBlurHandler,
+        InputClearHandler : emailClearHandler 
+    } = useInput(validateEmail);
+
+    const { 
+        text:password,
+        shouldDisplayError : passwordHasError,
+        textChangeHandler : passwordChangeHandler,
+        inputBlurHandler : passwordBlurHandler,
+        InputClearHandler : passwordClearHandler 
+    } = useInput(validatePasswordLength);
+function clearForm(){
+    
+        emailClearHandler();
+        passwordClearHandler();
+    }
 const handleSubmit = (e:FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
+        if( emailHasError || passwordHasError ) return;
+        if( email.length === 0  || password.length === 0  ) return;
+        
+      
+       
+        clearForm();
 }
   return (
     <>
@@ -13,10 +42,33 @@ const handleSubmit = (e:FormEvent<HTMLFormElement>) =>{
             <Typography variant='h4' component='h1'>Sign-In</Typography>
            
             <InputLabel sx={{fontWeight:500 , marginTop:1 , color:'#000000'}} htmlFor='email'>Email</InputLabel>
-            <TextField type='email' name='email' id = 'email' variant='outlined' size='small'/>
+                <TextField 
+                    type='email' 
+                    name='email' 
+                    id = 'email' 
+                    variant='outlined' 
+                    size='small'
+                    value={email}
+                    onChange={emailChangeHandler}
+                    onBlur={emailBlurHandler}
+                    error={emailHasError}
+                    helperText = {emailHasError?"Enter your email":""}
+                />
 
-            <InputLabel sx={{fontWeight:500 , marginTop:1 , color:'#000000'}} htmlFor='password'>Password</InputLabel>
-            <TextField type='password' placeholder='Minimum 6 characters required' name='password' id = 'password' variant='outlined' size='small'/>
+                <InputLabel sx={{fontWeight:500 , marginTop:1 , color:'#000000'}} htmlFor='password'>Password</InputLabel>
+                <TextField 
+                    type='password' 
+                    placeholder='Minimum 6 characters required' 
+                    name='password' 
+                    id = 'password' 
+                    variant='outlined' 
+                    size='small'
+                    onChange={passwordChangeHandler}
+                    onBlur={passwordBlurHandler}
+                    value={password}
+                    error={passwordHasError}
+                    helperText = {passwordHasError?"minimum 6 characters required":""}
+                />
 
 
             <Button style={{marginTop:'16px',height:'31px',background:'#f0c14b',color:"black",borderColor:'#a88734 #9c7r31 #846a29',textTransform:'none'}} variant='contained' type='submit'>Sign-In</Button>
