@@ -1,9 +1,12 @@
-import { Box, Button, Divider, Grid, InputLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Divider, Grid, InputLabel, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
-import {FC , FormEvent} from 'react';
+import { useRouter } from 'next/router';
+import {FC , FormEvent, useEffect} from 'react';
 import useInput from '../../../hooks/input/use-input';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux/hooks';
 import { validateEmail } from '../../../shared/utils/validation/email';
 import { validateNameLength, validatePasswordLength } from '../../../shared/utils/validation/length';
+import { register, reset } from '../authSlice';
 import { NewUser } from '../models/NewUser';
 const RegistrationForm:FC = () => {
     const { 
@@ -37,9 +40,11 @@ const RegistrationForm:FC = () => {
         inputBlurHandler : confirmPasswordBlurHandler,
         InputClearHandler : confirmPasswordClearHandler 
     } = useInput(validatePasswordLength);
+    const dispatch = useAppDispatch();
+    const {isSuccess,isLoading} = useAppSelector((state)=>state.auth);
+    const router = useRouter();
 
-
-    const handleSubmit = (e:FormEvent<HTMLFormElement>) =>{
+    const handleSubmit = async(e:FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
         if(password !== confirmPassword) return ;
         if(nameHasError || emailHasError || passwordHasError || confirmPasswordHasError) return;
@@ -48,10 +53,10 @@ const RegistrationForm:FC = () => {
         const newUser:NewUser = {
             email,
             password,
-            name
+            fullName:name
         }
         console.log("new user",newUser);
-        clearForm();
+       await  dispatch(register(newUser));
     }
     function clearForm(){
         nameClearHandler();
@@ -59,6 +64,16 @@ const RegistrationForm:FC = () => {
         passwordClearHandler();
         confirmPasswordClearHandler();
     }
+
+    useEffect(() => {
+        if(isSuccess){
+            dispatch(reset())
+            clearForm();
+            router.push('/signin')
+        }
+    }, [isSuccess,dispatch])
+    
+    if(isLoading) return <CircularProgress sx={{marginTop:'64px'}} color='primary'/>
   return (
     <Box sx={{border:1 , padding:2,borderColor:'#cccccc',width:'350px',marginTop:2}}>
         <form onSubmit={handleSubmit}>

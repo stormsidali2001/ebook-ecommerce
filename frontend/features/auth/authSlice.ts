@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 import { DisplayUser } from "./models/DisplayUser.interface";
 import { Jwt } from "./models/Jwt";
 import { NewUser } from "./models/NewUser";
@@ -25,6 +26,7 @@ export const register = createAsyncThunk(
     'auth/register',
     async (user:NewUser,thunkAPI)=>{
         try{
+            console.log('.........1')
             return await authService.register(user);
         }catch(err){
             return thunkAPI.rejectWithValue('Unable to register')
@@ -58,4 +60,7 @@ export const authSlice = createSlice({
         })
     }
 })
+
+export const selectedUser = (state:RootState)=>state.auth;
+export const {reset} = authSlice.actions;
 export default authSlice.reducer;
