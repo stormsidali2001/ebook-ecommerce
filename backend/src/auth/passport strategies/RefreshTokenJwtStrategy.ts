@@ -19,13 +19,13 @@ export class RefreshTokenJwtStrategy extends PassportStrategy(Strategy,'jwt-refr
             passReqToCallback:true
         })
     }
-    validate(request:Request,payload:jwtPayload){
+    validate(request:Request,{user}:{user:jwtPayload}){
         const refresh_token =   request?.headers?.authorization?.replace('Bearer','').trim();
         if(!refresh_token){
             throw new ForbiddenException("authorization header is mal formated");
         }
         return {
-            ...payload,
+            ...user,
             refresh_token
         }
     }

@@ -1,9 +1,13 @@
-import { Box, Button, Divider, Grid, InputLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Divider, Grid, InputLabel, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
-import {FC , FormEvent} from 'react';
+import { useRouter } from 'next/router';
+import {FC , FormEvent, useEffect} from 'react';
 import useInput from '../../../hooks/input/use-input';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux/hooks';
 import { validateEmail } from '../../../shared/utils/validation/email';
 import { validatePasswordLength } from '../../../shared/utils/validation/length';
+import { login ,reset} from '../authSlice';
+import { LoginUser } from '../models/LoginUser.interface';
 const SignInForm = () => {
     const { 
         text:email,
@@ -20,20 +24,42 @@ const SignInForm = () => {
         inputBlurHandler : passwordBlurHandler,
         InputClearHandler : passwordClearHandler 
     } = useInput(validatePasswordLength);
-function clearForm(){
+
+    const dispatch = useAppDispatch();
+    const {isSuccess,isLoading,isAuthenticated} = useAppSelector((state)=>state.auth);
+    const router = useRouter();
+    useEffect(()=>{
+        dispatch(reset())
+        clearForm();
+    },[isSuccess,dispatch]);
+    useEffect(()=>{
+        if(!isAuthenticated) return;
+        router.push('/')
+    },[isAuthenticated])
+    function clearForm(){
     
         emailClearHandler();
         passwordClearHandler();
     }
-const handleSubmit = (e:FormEvent<HTMLFormElement>) =>{
-        e.preventDefault();
-        if( emailHasError || passwordHasError ) return;
-        if( email.length === 0  || password.length === 0  ) return;
-        
-      
-       
-        clearForm();
-}
+    const handleSubmit = async (e:FormEvent<HTMLFormElement>) =>{
+            e.preventDefault();
+            if( emailHasError || passwordHasError ) return;
+            if( email.length === 0  || password.length === 0  ) return;
+            const loginUser:LoginUser = {
+                email,
+                password
+            }
+            await dispatch(login(loginUser));
+    }
+
+    if(isLoading){
+        return <CircularProgress
+                sx={{
+                    marginTop:'64px'
+                }}
+        />
+    }
+
   return (
     <>
     <Box sx={{border:1 , padding:2,borderColor:'#cccccc',width:'350px',marginTop:2}}>
