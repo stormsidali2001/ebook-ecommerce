@@ -29,4 +29,6 @@ export class AuthController{
         const refresh_token = user.refresh_token;
         return await this.authService.refreshToken(user.sub,refresh_token)
     }
+
+   
 }

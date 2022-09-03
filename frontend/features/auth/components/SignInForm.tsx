@@ -97,7 +97,7 @@ const SignInForm = () => {
                 />
 
 
-            <Button style={{marginTop:'16px',height:'31px',background:'#f0c14b',color:"black",borderColor:'#a88734 #9c7r31 #846a29',textTransform:'none'}} variant='contained' type='submit'>Sign-In</Button>
+            <Button disabled={!validateEmail(email) || !validatePasswordLength(password)} style={{marginTop:'16px',height:'31px',background:'#f0c14b',color:"black",borderColor:'#a88734 #9c7r31 #846a29',textTransform:'none'}} variant='contained' type='submit'>Sign-In</Button>
         </Grid>
     </form>
     <div style={{marginTop:'30px'}}>
