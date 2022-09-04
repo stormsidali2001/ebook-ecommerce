@@ -14,5 +14,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     </Provider>
   )
 }
-
+type CypressWindow = Window & typeof globalThis & {
+  Cypress:any , store:any
+}
+let thisWindow = window as CypressWindow;
+if(thisWindow.Cypress){
+  console.log('CYPRESS WINDOW');
+  thisWindow.store = store;
+}
 export default MyApp
